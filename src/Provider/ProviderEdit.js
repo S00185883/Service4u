@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Button, Container, Form, FormGroup, FormLabel, InputGroup } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
-import AppNavbar from "./AppNavbar";
+import AppNavbar from "../Utils/AppNavbar";
 
 class ProviderEdit extends Component {
   emptyItem = {
@@ -66,8 +66,8 @@ this.props.history.push("/providers");
           {title}
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
-              <Label for="name">Name</Label>
-              <Input
+              <FormLabel for="name">Name</FormLabel>
+              <InputGroup
                 type="text"
                 name="name"
                 id="name"
@@ -77,8 +77,8 @@ this.props.history.push("/providers");
               />
             </FormGroup>
             <FormGroup>
-              <Label for="addressLineOne">Address Line One</Label>
-              <Input
+              <FormLabel for="addressLineOne">Address Line One</FormLabel>
+              <InputGroup
                 type="text"
                 name="addressLineOne"
                 id="addressLineOne"
@@ -88,8 +88,8 @@ this.props.history.push("/providers");
               />
             </FormGroup>
             <FormGroup>
-              <Label for="addressLineOne">Address Line Two</Label>
-              <Input
+              <FormLabel for="addressLineOne">Address Line Two</FormLabel>
+              <InputGroup
                 type="text"
                 name="addressLineTwo"
                 id="addressLineTwo"
@@ -99,8 +99,8 @@ this.props.history.push("/providers");
               />
             </FormGroup>
             <FormGroup>
-              <Label for="town">Town</Label>
-              <Input
+              <FormLabel for="town">Town</FormLabel>
+              <InputGroup
                 type="text"
                 name="town"
                 id="town"
@@ -111,8 +111,8 @@ this.props.history.push("/providers");
             </FormGroup>
             <div className="row">
               <FormGroup className="col-md-4 mb-3">
-                <Label for="ciunty">County</Label>
-                <Input
+                <FormLabel for="ciunty">County</FormLabel>
+                <InputGroup
                   type="text"
                   name="county"
                   id="county"
@@ -122,8 +122,8 @@ this.props.history.push("/providers");
                 />
               </FormGroup>
               <FormGroup className="col-md-3 mb-3">
-                <Label for="country">Eircode</Label>
-                <Input
+                <FormLabel for="country">Eircode</FormLabel>
+                <InputGroup
                   type="text"
                   name="eircode"
                   id="eircode"

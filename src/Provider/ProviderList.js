@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, ButtonGroup, Container, Table } from "reactstrap";
-import AppNavbar from "./AppNavbar";
+import AppNavbar from "../Utils/AppNavbar";
 import { Link } from "react-router-dom";
+import { Button, ButtonGroup, Container, Table } from "react-bootstrap";
 
 class ProviderList extends Component {
   constructor(props) {
@@ -13,13 +13,13 @@ class ProviderList extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch("api/providers")
+    fetch("/providers")
       .then((response) => response.json())
       .then((data) => this.setState({ providers: data, isLoading: false }));
   }
 
   async remove(id) {
-    await fetch(`/api/providers/${id}`, {
+    await fetch(`//providers/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
