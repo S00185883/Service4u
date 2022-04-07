@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import AppNavbar from "../Utils/AppNavbar";
+
 import {
   Button,
   Card,
   CardGroup,
-
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const Provider = () => {
+const Provider = (providerId) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
+const ddd = window.location.href;
+    console.log( ddd );
+    const answer= ddd.split("/").pop();
+
   useEffect(() => {
-    fetch(`http://localhost:4567/providers/sector/${this.props.match.params.id}`)
+    fetch('http://localhost:4567/provider/'+answer)
       .then((res) => res.json())
       .then(
         (data) => {
           setIsLoaded(true);
-          setUsers(data);
+          setUser(data);
         },
         (error) => {
           setIsLoaded(true);
@@ -30,44 +34,13 @@ const Provider = () => {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
+    
     return (
       <>
         <AppNavbar />
 
-        <CardGroup>
-          {users.map((user) => (
-            // <li key={ user.providerId }>{ user.name }</li>
-            <>
-              <Card>
-                <Card.Img variant="top" />
-                <Card.Body>
-                  <Card.Title>{user.name}</Card.Title>
-                  <Card.Text>
-                    <ul>
-                      {" "}
-                      <li>{user.addressLineOne}</li>
-                      <li>{user.addressLineTwo}</li>
-                      <li>{user.town}</li>
-                      <li>{user.county}</li>
-                      <li>{user.eircode}</li>
-                      <li>{user.providerId}</li>
-                    </ul>
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    tag={Link}
-                    to={"/providers/" + user.providerId}
-                  >
-                    Edit
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </>
-          ))}
-        </CardGroup>
+          <li key={user.providerId}>{user.name}</li>
+     
       </>
     );
   }

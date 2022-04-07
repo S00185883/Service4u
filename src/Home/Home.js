@@ -69,12 +69,16 @@ const Home = () => {
                 </Card.Body>
                 <Card.Footer>
                   <Button
-                    size="sm"
-                    color="primary"
-                    tag={Link}
-                    to={"/providers/" + user.providerId}
+
                   >
-                    Edit
+                    <Link
+                      size="sm"
+                      color="primary"
+                      tag={Link}
+                      to={"/provider/" + user.providerId}
+                    >
+                      Find out More
+                    </Link>
                   </Button>
                 </Card.Footer>
               </Card>
