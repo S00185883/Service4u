@@ -1,35 +1,53 @@
-import React, { Component } from "react";
-import {
-  Container,
-  Dropdown,
-  DropdownButton,
-  Nav,
-  NavDropdown,
-} from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import React from "react";
 
-export default class AppNavbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isOpen: false };
-    this.toggle = this.toggle.bind(this);
+export const Dropdown = (props) => (
+  <div className="form-group">
+    <strong>{props.name}</strong>
+    <select
+      className="form-control"
+      name="{props.name}"
+      onChange={props.onChange}
+    >
+      <option defaultValue>Select {props.name}</option>
+      {props.options.map((item, index) => (
+        <option key={index} value={item.id}>
+          {item.name}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+export default class DropdownList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      list: [],
+      chosenValue: "",
+    };
   }
 
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+  componentDidMount() {
+    fetch("http://localhost:4567/providers/sector/")
+      .then((response) => response.json())
+      .then((item) => this.setState({ list: item }));
   }
+
+  onDropdownChange = (e) => {
+    this.setState({ chosenValue: e.target.value });
+  };
 
   render() {
     return (
-      <DropdownButton id="dropdown-item-button" title="Sector">
-        <Dropdown.ItemText>Plumbing</Dropdown.ItemText>
-        <Dropdown.Item as="button">Eletrician</Dropdown.Item>
-        <Dropdown.Item as="button">Pets</Dropdown.Item>
-        <Dropdown.Item as="button">Cleaning</Dropdown.Item>
-      </DropdownButton>
+      <div>
+        <h2>React Bootstrap Dropdown Select Box Example</h2>
+
+        <Dropdown
+          name={this.state.name}
+          options={this.state.list}
+          onDropdownChange={this.onDropdownChange}
+        />
+      </div>
     );
   }
 }

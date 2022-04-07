@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import AppNavbar from "../Utils/AppNavbar";
-import { Button, Card, CardGroup, Dropdown, DropdownButton } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  CardGroup,
+
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
-const Home = () => {
+const Provider = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [users, setUsers] = useState([]);
-  const [value, setValue] = useState("Taxi");
-  const handleSelect = (e) => {
-    console.log(e);
-    setValue(e);
-  };
   useEffect(() => {
-    fetch("http://localhost:4567/providers/sector/" + value)
+    fetch(`http://localhost:4567/providers/sector/${this.props.match.params.id}`)
       .then((res) => res.json())
       .then(
         (data) => {
@@ -33,20 +33,7 @@ const Home = () => {
     return (
       <>
         <AppNavbar />
-        <DropdownButton
-          alignRight
-          title={value}
-          id="dropdown-menu-align-right"
-          onSelect={handleSelect}
-        >
-          <Dropdown.Item eventKey="">All Services</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item eventKey="Taxi">Taxi</Dropdown.Item>
-          <Dropdown.Item eventKey="Plumbing">Plumbing</Dropdown.Item>
-          <Dropdown.Item eventKey="PetCare">Pet Care</Dropdown.Item>
-          <Dropdown.Item eventKey="Eletrician">Eletrician</Dropdown.Item>
-          <Dropdown.Item eventKey="Carpentry">Carpentry</Dropdown.Item>
-        </DropdownButton>
+
         <CardGroup>
           {users.map((user) => (
             // <li key={ user.providerId }>{ user.name }</li>
@@ -85,4 +72,4 @@ const Home = () => {
     );
   }
 };
-export default Home;
+export default Provider;
