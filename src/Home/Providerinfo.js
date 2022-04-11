@@ -7,17 +7,18 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const ProviderInfo = (value) => {
+const ProviderInfo = (value,selection) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [ users, setUsers ] = useState( [] );
+  
 const refresh = () => {
   // re-renders the component
   this.setState({});
 };
 
   useEffect(() => {
-    fetch("http://localhost:4567/providers/sector/" + value)
+    fetch("http://localhost:4567/providers/"+selection+"/" + value)
       .then((res) => res.json())
       .then(
         ( data ) => {
@@ -29,6 +30,7 @@ const refresh = () => {
           setIsLoaded(true);
           setError(error);
         }
+        
       );
   }, []);
   if (error) {
@@ -38,7 +40,7 @@ const refresh = () => {
   } else {
     return (
       <>
-        <CardGroup>
+        {/* <CardGroup>
           {users.map((user) => (
             // <li key={ user.providerId }>{ user.name }</li>
             <>
@@ -61,17 +63,20 @@ const refresh = () => {
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <Button size="sm" color="danger">
-                      <Link tag={Link} to={"/provider/" + user.providerId}>
-                        Find out More
-                      </Link>
-                    </Button>
+                    <Link
+                      size="sm"
+                      color="white"
+                      to={"/provider/" + user.providerId}
+                    >
+                     Find out More
+                    </Link>
                   </Card.Footer>
                 </Card>
               </Row>
             </>
           ))}
-        </CardGroup>
+        </CardGroup> */}
+        {selection}
       </>
     );
   }

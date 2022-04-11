@@ -1,21 +1,31 @@
-import React, { Component } from "react";
-import { Container, Nav, NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav, NavDropdown } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { auth, db, logout } from "../User/firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
+const AppNavbar = () => {
+const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setName(data.name);
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
+    }
+  };
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading]);
 
-export default class AppNavbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isOpen: false };
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
-
-  render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
@@ -23,26 +33,16 @@ export default class AppNavbar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="#features"></Nav.Link>
+              <Nav.Link href="#pricing"></Nav.Link>
+
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
+              <Nav.Link href="#deets">{ name}</Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                Dank memes
+                <Button className="dashboard__btn" onClick={logout}>
+                  Logout
+                </Button>{" "}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -50,4 +50,6 @@ export default class AppNavbar extends Component {
       </Navbar>
     );
   }
-}
+
+
+export default AppNavbar;
