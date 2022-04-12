@@ -1,43 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth, db, logout } from "./firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+
 import options from "../Location/data";
 import AppNavbar from "../Utils/AppNavbar";
 import CheckIcon from "@material-ui/icons/Check";
 
 import {
   Button,
-  Card,
-  CardGroup,
+
   Dropdown,
   DropdownButton,
-  Row,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import ProviderInfo from "../Home/Providerinfo";
 import { Divider, InputBase, Menu, MenuItem } from "@mui/material";
 function Dashboard() {
-  const [ user, loading, error ] = useAuthState( auth );
-  const [ name, setName ] = useState( "" );
-  const navigate = useNavigate();
-  const fetchUserName = async () => {
-    try {
-      const q = query( collection( db, "users" ), where( "uid", "==", user?.uid ) );
-      const doc = await getDocs( q );
-      const data = doc.docs[ 0 ].data();
-      setName( data.name );
-    } catch ( err ) {
-      console.error( err );
-      alert( "An error occured while fetching user data" );
-    }
-  };
-  useEffect( () => {
-    if ( loading ) return;
-    if ( !user ) return navigate( "/" );
-    fetchUserName();
-  }, [ user, loading ] );
+ 
+
   const refreshPage = () => {
     return window.localStorage.getItem( "value" ); // !! : cast to boolean
   };
@@ -73,9 +50,7 @@ function Dashboard() {
     setSearchText( e.target.value );
   };
 
-  const [ show, setShow ] = useState( false );
-  const handleClosed = () => setShow( false );
-  const handleShow = () => setShow( true );
+
   return (
     <div>
       <AppNavbar />
@@ -91,12 +66,13 @@ function Dashboard() {
 
   function renderDashboardMenu() {
     const displayOptions = options
-      .map( ( item ) => {
-        if ( item.label.toLowerCase().includes( searchText.toLowerCase() ) ) {
+      // eslint-disable-next-line
+      .map((item) => {
+        if (item.label.toLowerCase().includes(searchText.toLowerCase())) {
           return item;
         }
-      } )
-      .filter( ( item ) => item !== undefined );
+      })
+      .filter((item) => item !== undefined);
 
     function renderOption( value ) {
       if ( selection === value ) {
