@@ -1,4 +1,4 @@
-import { Button, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 const AppNavbar = () => {
-const [user, loading, error] = useAuthState(auth);
+const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
@@ -29,7 +29,7 @@ const [user, loading, error] = useAuthState(auth);
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

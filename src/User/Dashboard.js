@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, db, logout } from "../User/firebase";
+import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import options from "../Location/data";
 import AppNavbar from "../Utils/AppNavbar";
 import CheckIcon from "@material-ui/icons/Check";
-import { MenuItem, InputBase, Menu, Divider } from "@material-ui/core";
 
 import {
   Button,
@@ -17,7 +16,8 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ProviderInfo from "./Providerinfo";
+import ProviderInfo from "../Home/Providerinfo";
+import { Divider, InputBase, Menu, MenuItem } from "@mui/material";
 function Dashboard() {
   const [ user, loading, error ] = useAuthState( auth );
   const [ name, setName ] = useState( "" );
@@ -39,9 +39,8 @@ function Dashboard() {
     fetchUserName();
   }, [ user, loading ] );
   const refreshPage = () => {
-    return window.localStorage.getItem("value"); // !! : cast to boolean
-    return window.localStorage.getItem("selection"); // !! : cast to boolean
-  };;
+    return window.localStorage.getItem( "value" ); // !! : cast to boolean
+  };
 
   const [ value, setValue ] = useState( refreshPage() );
   const handleSelect = ( e ) => {
@@ -52,10 +51,10 @@ function Dashboard() {
   };
   const [ anchorEl, setAnchorEl ] = useState( null );
   const [ searchText, setSearchText ] = useState( "" );
-  const [selection, setSelection] = useState("");
+  const [ selection, setSelection ] = useState( "" );
 
   useEffect( () => {
-    setSelection(window.localStorage.getItem("selection") );
+    setSelection( options[ 0 ].label );
   }, [] );
 
   const handleMenuOpen = ( event ) => {
@@ -65,9 +64,6 @@ function Dashboard() {
   const handleClose = ( e ) => {
     if ( e.target.innerText !== selection && e.target.innerText !== "" ) {
       setSelection( e.target.innerText );
-      window.localStorage.setItem("selection", e);
-
-
     }
     setSearchText( "" );
     setAnchorEl( null );
@@ -78,7 +74,8 @@ function Dashboard() {
   };
 
   const [ show, setShow ] = useState( false );
-
+  const handleClosed = () => setShow( false );
+  const handleShow = () => setShow( true );
   return (
     <div>
       <AppNavbar />
@@ -131,7 +128,6 @@ function Dashboard() {
           }}
         >
           <MenuItem
-            
             disableTouchRipple={true}
           >
             <div >
@@ -156,8 +152,7 @@ function Dashboard() {
                 <Divider  />
               </div>
             );
-          } ) }
-          
+          })}
         </Menu>
         <DropdownButton alignRight title={value} onSelect={handleSelect}>
           <Dropdown.Item eventKey="All">All Services</Dropdown.Item>
@@ -168,18 +163,9 @@ function Dashboard() {
           <Dropdown.Item eventKey="Electrician">Electrician</Dropdown.Item>
           <Dropdown.Item eventKey="Carpentry">Carpentry</Dropdown.Item>
         </DropdownButton>
-{selection}
-        {ProviderInfo(value,selection)}
-        <div className="dashboard">
-          <div className="dashboard__container">
-            Logged in as
-            <div>{name}</div>
-            <div>{user?.email}</div>
-            <button className="dashboard__btn" onClick={logout}>
-              Logout
-            </button>
-          </div>
-        </div>
+
+        {ProviderInfo(value)}
+
       </>
     );
   }

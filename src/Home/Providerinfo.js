@@ -18,7 +18,7 @@ const refresh = () => {
 };
 
   useEffect(() => {
-    fetch("http://localhost:4567/providers/"+selection+"/" + value)
+    fetch("http://localhost:4567/providers/sector/" + value)
       .then((res) => res.json())
       .then(
         ( data ) => {
@@ -40,7 +40,7 @@ const refresh = () => {
   } else {
     return (
       <>
-        {/* <CardGroup>
+        <CardGroup>
           {users.map((user) => (
             // <li key={ user.providerId }>{ user.name }</li>
             <>
@@ -75,8 +75,7 @@ const refresh = () => {
               </Row>
             </>
           ))}
-        </CardGroup> */}
-        {selection}
+        </CardGroup>
       </>
     );
   }
