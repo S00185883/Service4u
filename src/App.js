@@ -7,7 +7,7 @@ import Booking from "./Booking/booking";
 import Login from "./User/Login";
 import Register from "./User/Register";
 import Reset from "./User/Reset";
-import Dashboard from "./User/Dashboard";
+import Dashboard from "./Home/Dashboard";
 import Location from "./Location/Location";
 
 

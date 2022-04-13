@@ -10,7 +10,7 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
-import ProviderInfo from "../Home/Providerinfo";
+import ProviderInfo from "./Providerinfo";
 import { Divider, InputBase, Menu, MenuItem } from "@mui/material";
 function Dashboard() {
  
@@ -32,7 +32,7 @@ function Dashboard() {
     return (
       <>
  <AppNavbar/>
-        <DropdownButton alignRight title={value} onSelect={handleSelect}>
+        <DropdownButton aligncentre title={value} onSelect={handleSelect}>
           <Dropdown.Item eventKey="All">All Services</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item eventKey="Taxi">Taxi</Dropdown.Item>

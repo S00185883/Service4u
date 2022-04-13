@@ -4,7 +4,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import options from "./data";
-import Dashboard from "../User/Dashboard";
+import Dashboard from "../Home/Dashboard";
 const useStyles = makeStyles((theme) => ({
   DropDownButton: {
     margin: "50px 50px",
