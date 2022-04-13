@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, CardGroup, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, CardGroup,  Form, Row } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import Typography from "@mui/material/Typography";
 import StarIcon from "@mui/icons-material/Star";
 
 const Review = (answer) => {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [ setError] = useState(null);
+  const [ setIsLoaded] = useState(false);
   const [users, setUsers] = useState([]);
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const refreshPage = () => {
-    return window.localStorage.getItem("rating"); // !! : cast to boolean
-  };
   const [ review, setReview ] = useState( "" );
 
 
   const [ value, setValue ] = React.useState();
-  // const [ rating, setRating ] = useState();
-  // const [customer, setCustomer] = useState();
-  // const [customeremail, setCustomerEmail] = useState();
-  // const [date, setDate] = useState(new Date());
-  // const [providerid, setProviderId] = useState();
+
 
   const [ hover, setHover ] = React.useState( -1 );
   const servicething = window.location.href;
@@ -61,6 +53,7 @@ const Review = (answer) => {
     if (loading) return;
     if (!user) return navigate("/");
     fetchUserName();
+    // eslint-disable-next-line
   }, [user, loading]);
   useEffect(() => {
     fetch(
@@ -78,6 +71,7 @@ const Review = (answer) => {
           setError(error);
         }
       );
+    // eslint-disable-next-line
   }, [] );
       const rating=value;
   const providerid = serviceanswer;

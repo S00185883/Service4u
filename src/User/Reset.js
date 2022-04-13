@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "./firebase";
 import "./Reset.css";
+import { Button } from "react-bootstrap";
+import Google from "../images/favicon_io/favicon-32x32.png";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+
+import TextField from "@mui/material/TextField";
 
 function Reset() {
   const [email, setEmail] = useState("");
@@ -16,21 +22,57 @@ function Reset() {
   }, [user, loading]);
 
   return (
-    <div className="reset">
-      <div className="reset__container">
-        <input
-          type="text"
-          className="reset__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <button className="reset__btn" onClick={() => sendPasswordReset(email)}>
-          Send password reset email
-        </button>
-
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
+    <div>
+      <div className="body">
+        <div class="container">
+          <div class="main sign-in">
+            <div class="card">
+              <div class="logo"></div>
+              <div class="card-head">
+                <h3 class="header">Sign In</h3>
+              </div>
+              <div class="card-body">
+                <form id="frmLogin">
+                  <Box
+                    className="box"
+                    component="form"
+                    sx={{
+                      "& .MuiTextField-root": { m: 1, width: "25ch" },
+                    }}
+                    Validate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      fullWidth
+                      required
+                      id="outlined-required"
+                      label="Email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Box>
+                  <div class="form-group">
+                    <Button
+                      className="login__btn"
+                      onClick={() => sendPasswordReset(email)}
+                    >
+                      Send password reset email
+                    </Button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer">
+                <span>
+                  Don't have an account?{" "}
+                  <Link to="/register">
+                    <a>Register</a>
+                  </Link>{" "}
+                  now.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -34,6 +34,8 @@
     "react-day-picker": "^8.0.3",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^5.0.3",
+    "react-google-button": "^0.7.2",
+    "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^0.0.0-experimental-compat.6",
     "react-scripts": "^5.0.0",
