@@ -94,12 +94,18 @@ function Location() {
 
   const handleClose = (e) => {
     if (e.target.innerText !== selection && e.target.innerText !== "") {
-      setSelection(e.target.innerText);
+      setSelection( e.target.innerText );
+                             window.localStorage.setItem(
+                               "county",
+                               e.target.innerText
+                             );
+
     }
     setSearchText("");
     setAnchorEl(null);
   };
-
+  const location = window.localStorage.getItem(
+    "county" );
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
@@ -145,6 +151,7 @@ function Location() {
 
     return (
       <>
+        
         <Menu
           anchorEl={anchorEl}
           keepMounted={true}
@@ -194,7 +201,7 @@ function Location() {
           })}
         </Menu>
 
-
+{location}
         </>
     );
   }

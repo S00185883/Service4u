@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AppNavbar from "../Utils/AppNavbar";
 import {
   Button,
   Card,
@@ -11,18 +10,18 @@ const ProviderInfo = (value,selection) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [ users, setUsers ] = useState( [] );
-  
+   const location = window.localStorage.getItem("county");
+
 const refresh = () => {
   // re-renders the component
   this.setState({});
 };
 
   useEffect(() => {
-    fetch("http://localhost:4567/providers/sector/" + value)
+    fetch("http://localhost:4567/providers/"+location+"/"+value)
       .then((res) => res.json())
       .then(
-        ( data ) => {
-          
+        (data) => {
           setIsLoaded(true);
           setUsers(data);
         },
@@ -30,7 +29,6 @@ const refresh = () => {
           setIsLoaded(true);
           setError(error);
         }
-        
       );
   }, []);
   if (error) {
@@ -64,11 +62,12 @@ const refresh = () => {
                   </Card.Body>
                   <Card.Footer>
                     <Link
+                      className="link"
                       size="sm"
                       color="white"
                       to={"/provider/" + user.providerId}
                     >
-                     Find out More
+                      Find out More
                     </Link>
                   </Card.Footer>
                 </Card>

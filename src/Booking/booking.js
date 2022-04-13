@@ -6,7 +6,7 @@ import "../Booking/booking.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { send } from "emailjs-com";
@@ -80,7 +80,8 @@ const Booking = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(booking),
     }).then(() => {
-      console.log("new booking");
+      console.log( "new booking" );
+      handleShow();
       emailjs.send(
         "service_nrc1joz",
         "template_4mka4fc",
@@ -102,17 +103,18 @@ const Booking = () => {
     if (location && checkInDate) {
       return (
         <Button variant="primary" type="submit">
-          Submit
+       Book
         </Button>
       );
     } else {
       return (
         <Button variant="primary" type="submit" disabled>
-          Submit
+          Book
         </Button>
       );
     }
   }
+  
   return (
     <div>
       <AppNavbar />
@@ -146,9 +148,42 @@ const Booking = () => {
           )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <SubmitButton/>
+        <SubmitButton />
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header>
+            <Modal.Title>Modal title</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Company</h4> {provider.name}
+            <br />
+            <h4>Service</h4>
+            {service.name}
+            <br />
+            <h4>Where</h4>
+            {location}
+            <br />
+            <h4>When</h4>
+            {date}
+            <br />
+            <h4>How Much</h4>
+            {service.price}
+            <br />
+          </Modal.Body>
+          <Modal.Footer>
+            A Confirmation email should be sent to you at {user.email}
+            <Button variant="secondary">
+              <Link className="link" to="/dashboard">
+                Confirm
+              </Link>
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Form>
     </div>
   );

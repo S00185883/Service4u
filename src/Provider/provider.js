@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import AppNavbar from "../Utils/AppNavbar";
-
+import "./provider.css";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Review from "../Reviews/reviews";
 const Provider = (providerId) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState([]);
   const [services, setServices] = useState([]);
+  const [data, setData] = useState("");
 
+  const parentToChild = () => {
+    setData({ answer });
+  };
   const ddd = window.location.href;
   console.log(ddd);
   const answer = ddd.split("/").pop();
@@ -66,17 +71,25 @@ const Provider = (providerId) => {
                   <td>{service.name}</td>
                   <td>{service.description}</td>
                   <td>€{service.price}</td>
-                  <td> <Button>
+                  <td>
+                    {" "}
+                    <Button>
                       <Link
                         size="sm"
+                        className="link"
                         color="primary"
                         tag={Link}
-                        to={"/booking/" + service.serviceId}>Book</Link></Button>
-                       </td>
+                        to={"/booking/" + service.serviceId}
+                      >
+                        Book
+                      </Link>
+                    </Button>
+                  </td>
                 </tr>
               </tbody>
             ))}
           </Table>
+          <Review parentToChild={data} />{" "}
         </>
       </>
     );
