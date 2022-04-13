@@ -1,4 +1,4 @@
-.wrapper {
+.booking .wrapper {
     width: 100%;
     margin: 20px auto;
     background: white;
@@ -8,17 +8,17 @@
     padding-top: 1px;
 }
 
-form {
+.booking form {
     width: 35%;
     margin: 0 auto;
 }
 
-form.register {
+.booking form.register {
     /* Register form height */
     height: 420px;
 }
 
-form .text-field {
+.booking form .text-field {
     /* Input fields; Username, Password etc. */
     border: 1px solid #a6a6a6;
     width: 100%;
@@ -32,13 +32,13 @@ form .text-field {
 
 }
 
-form .text-field:focus {
+.booking form .text-field:focus {
     box-shadow: inset 0 0 2px rgba(0, 0, 0, .3);
     color: #a6a6a6;
     background: white;
 }
 
-form .button {
+.booking form .button {
     /* Submit button */
     border-radius: 3px;
     border: 1px solid #336895;
@@ -61,7 +61,7 @@ form .button {
     font-size: 13px;
 }
 
-form .button:hover {
+.booking form .button:hover {
     background: linear-gradient(bottom, #5c96c9 0%, #6bafea 100%);
     background: -o-linear-gradient(bottom, #5c96c9 0%, #6bafea 100%);
     background: -moz-linear-gradient(bottom, #5c96c9 0%, #6bafea 100%);
@@ -69,7 +69,7 @@ form .button:hover {
     background: -ms-linear-gradient(bottom, #5c96c9 0%, #6bafea 100%);
 }
 
-form .button:active {
+.booking form .button:active {
     background: linear-gradient(bottom, #5BA7E9 0%, #4889C2 100%);
     background: -o-linear-gradient(bottom, #5BA7E9 0%, #4889C2 100%);
     background: -moz-linear-gradient(bottom, #5BA7E9 0%, #4889C2 100%);
@@ -79,17 +79,17 @@ form .button:active {
     box-shadow: inset 0 0 2px rgba(0, 0, 0, .3), 0 1px 0 white;
 }
 
-* {
+.booking  {
     padding: 0;
     margin: 0;
 }
 
-body {
+.booking body {
     color: #515151;
     font-family: 'Open Sans', sans-serif;
 }
 
-#bg img {
+.booking #bg img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -97,7 +97,7 @@ body {
     top: 0;
 }
 
-#overlay {
+.booking #overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -107,7 +107,7 @@ body {
     opacity: 0.5;
 }
 
-#container {
+.booking #container {
     position: relative;
     max-width: 218px;
     margin: 200px auto;
@@ -120,19 +120,18 @@ body {
     box-shadow: -7px 0px 0px -2px rgba(71, 71, 71, 0.2);
 }
 
-h1 {
+.booking h1 {
     margin: 30px 0 20px 0;
     font-weight: normal;
 }
 
-p {
+.booking p {
     font-size: 0.8em;
     margin-bottom: 25px;
 }
 
-button {
+.booking button {
     width: 100%;
-    background: #73c242;
     border: transparent;
     border-radius: 3%;
     padding: 10px;
@@ -141,7 +140,7 @@ button {
     letter-spacing: 1px;
 }
 
-#circle {
+.booking #circle {
     position: absolute;
     width: 80px;
     height: 80px;
@@ -152,7 +151,7 @@ button {
     left: 84px;
 }
 
-i {
+.booking i {
     color: white;
     margin: 25px;
     font-size: 30px;

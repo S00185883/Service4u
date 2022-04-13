@@ -9,6 +9,8 @@ import Register from "./User/Register";
 import Reset from "./User/Reset";
 import Dashboard from "./Home/Dashboard";
 import Location from "./Location/Location";
+import ProviderPage from "./Provider/ProviderPage";
+import Review from "./Reviews/reviews";
 
 
 
@@ -17,12 +19,12 @@ class App extends Component {
     return (
       <Router>
         <Routes>
-
-          <Route path="/provider/:id" element={<Provider />} />
+          <Route path="/provider/:id" element={<ProviderPage />} />
           <Route path="/booking/:id" element={<Booking />} />
           <Route exact path="/" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/location" element={<Location />} />
+          <Route exact path="/review" element={<Review />} />
 
           <Route exact path="/reset" element={<Reset />} />
           <Route exact path="/dashboard" element={<Dashboard />} />

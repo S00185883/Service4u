@@ -5,3 +5,8 @@
 .link:hover {
     color: #00F
 }
+.img {
+    width:10px;
+    height:70px;
+    border-radius: 100%;
+}

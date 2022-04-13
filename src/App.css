@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -27,7 +27,13 @@
 .App-link {
   color: #61dafb;
 }
+.link {
+  color: #FFF;
+}
 
+.link:hover {
+  color: #00F
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -38,4 +44,9 @@
 }
 .container, .container-fluid {
   margin-top: 20px;
-}  */
+} 
+body{
+  background: linear-gradient(to top, #abaeb0, #18445a);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

@@ -12,11 +12,13 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { send } from "emailjs-com";
 import emailjs from "emailjs-com";
 
-const servicething = window.location.href;
-console.log(servicething);
-const serviceanswer = servicething.split("/").pop();
+
 
 const Booking = () => {
+  const servicething = window.location.href;
+  console.log(servicething);
+  const serviceanswer = servicething.split("/").pop();
+  console.log(serviceanswer);
   const refreshPage = () => {
     return window.localStorage.getItem("date"); // !! : cast to boolean
   };
@@ -32,7 +34,7 @@ const Booking = () => {
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const [checkInDate, setCheckInDate] = useState(null);
-
+  const [ servicenumber, setServiceNumber ] = useState(serviceanswer);
   const handleCheckInDate = (date) => {
     setCheckInDate(date);
     window.localStorage.setItem("date", date);
@@ -54,14 +56,21 @@ const Booking = () => {
     if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
-
+  const providerId = window.localStorage.getItem("provider");
   useEffect(() => {
-    fetch("http://localhost:4567/service/" + serviceanswer)
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/service/" +
+        servicenumber
+    )
       .then((res) => res.json())
       .then((service) => {
         setService(service);
+        window.localStorage.setItem("service", serviceanswer);
       });
-    fetch("http://localhost:4567/provider/" + service.providerid)
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/provider/" +
+        providerId
+    )
       .then((res) => res.json())
       .then((data) => {
         setProvider(data);
@@ -69,18 +78,21 @@ const Booking = () => {
   }, []);
 
   const customer = name;
-  const serviceId = serviceanswer;
-  const providerId = provider.providerId;
+  const serviceId = window.localStorage.getItem("service");
+
   // const datetime = value;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const booking = { location, date, serviceId, customer, providerId };
-    fetch("http://localhost:4567/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(booking),
-    }).then(() => {
-      console.log( "new booking" );
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/bookings",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(booking),
+      }
+    ).then(() => {
+      console.log("new booking");
       handleShow();
       emailjs.send(
         "service_nrc1joz",
@@ -103,7 +115,7 @@ const Booking = () => {
     if (location && checkInDate) {
       return (
         <Button variant="primary" type="submit">
-       Book
+          Book
         </Button>
       );
     } else {
@@ -114,9 +126,9 @@ const Booking = () => {
       );
     }
   }
-  
+
   return (
-    <div>
+    <div className="booking">
       <AppNavbar />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -147,8 +159,7 @@ const Booking = () => {
             </div>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
         <SubmitButton />
         <Modal
           show={show}
@@ -187,5 +198,5 @@ const Booking = () => {
       </Form>
     </div>
   );
-};;
+};;;
 export default Booking;

@@ -41,7 +41,6 @@ function Dashboard() {
           <Dropdown.Item eventKey="Electrician">Electrician</Dropdown.Item>
           <Dropdown.Item eventKey="Carpentry">Carpentry</Dropdown.Item>
         </DropdownButton>
-{location}
         {ProviderInfo(value)}
 
       </>

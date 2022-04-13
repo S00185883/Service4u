@@ -4,95 +4,99 @@ import "./provider.css";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Review from "../Reviews/reviews";
-const Provider = (providerId) => {
+const Provider = ( providerId ) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState([]);
-  const [services, setServices] = useState([]);
-  const [data, setData] = useState("");
+  const [ services, setServices ] = useState( [] );
 
-  const parentToChild = () => {
-    setData({ answer });
-  };
+
   const ddd = window.location.href;
-  console.log(ddd);
-  const answer = ddd.split("/").pop();
-
-  useEffect(() => {
-    fetch("http://localhost:4567/provider/" + answer)
+  console.log( ddd );
+  const answer = ddd.split( "/" ).pop();
+  const [ providerIds, setProviderId ] = useState( answer );
+  useEffect( () => {
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/provider/" +
+        providerIds
+    )
       .then((res) => res.json())
       .then(
         (data) => {
           setIsLoaded(true);
-          setUser(data);
+          setUser( data );
+            window.localStorage.setItem("provider", answer);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
         }
-      );
-    fetch("http://localhost:4567/services/provider/" + answer)
-      .then((res) => res.json())
-      .then(
-        (services) => {
-          setIsLoaded(true);
-          setServices(services);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []);
+    );
+    
+fetch(
+  "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/services/provider/" +
+answer)
+  .then((res) => res.json())
+  .then(
+    (services) => {
+      setIsLoaded(true);
+      setServices(services);
+    },
+    (error) => {
+      setIsLoaded(true);
+      setError(error);
+    }
+  );
+    },
+    [] );
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
-      <>
-        <AppNavbar />
 
-        <li key={user.providerId}>{user.name}</li>
-        <h2>Services</h2>
-        <>
-          <Table striped bordered hover>
-            <thead>
+    <>
+      <li key={ user.providerId }>{ user.name }</li>
+      <h2>Services</h2>
+      <>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          { services.map( ( service ) => (
+            <tbody>
               <tr>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th></th>
+                <td>{ service.name }</td>
+                <td>{ service.description }</td>
+                <td>€{ service.price }</td>
+                <td>
+                  { " " }
+                  <Button>
+                    <Link
+                      size="sm"
+                      className="link"
+                      color="primary"
+                      tag={ Link }
+                      to={ "/booking/" + service.serviceId }
+                    >
+                      Book
+                    </Link>
+                  </Button>
+                </td>
               </tr>
-            </thead>
-            {services.map((service) => (
-              <tbody>
-                <tr>
-                  <td>{service.name}</td>
-                  <td>{service.description}</td>
-                  <td>€{service.price}</td>
-                  <td>
-                    {" "}
-                    <Button>
-                      <Link
-                        size="sm"
-                        className="link"
-                        color="primary"
-                        tag={Link}
-                        to={"/booking/" + service.serviceId}
-                      >
-                        Book
-                      </Link>
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
-          </Table>
-          <Review parentToChild={data} />{" "}
-        </>
+            </tbody>
+          ) ) }
+        </Table>
+        <Review />{ " " }
       </>
-    );
+    </>
+  );
   }
 };
 export default Provider;

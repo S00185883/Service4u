@@ -24,17 +24,18 @@ const Review = (answer) => {
 
 
   const [ value, setValue ] = React.useState();
-   
+  // const [ rating, setRating ] = useState();
+  // const [customer, setCustomer] = useState();
+  // const [customeremail, setCustomerEmail] = useState();
+  // const [date, setDate] = useState(new Date());
+  // const [providerid, setProviderId] = useState();
+
   const [ hover, setHover ] = React.useState( -1 );
   const servicething = window.location.href;
   console.log(servicething);
   const serviceanswer = servicething.split( "/" ).pop();
     console.log(serviceanswer);
 
-  const refresh = () => {
-    // re-renders the component
-    this.setState({});
-  };
   function getLabelText(value) {
     return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
   }
@@ -62,7 +63,10 @@ const Review = (answer) => {
     fetchUserName();
   }, [user, loading]);
   useEffect(() => {
-    fetch("http://localhost:4567/review/provider/"+serviceanswer)
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/review/provider/" +
+        serviceanswer
+    )
       .then((res) => res.json())
       .then(
         (data) => {
@@ -76,32 +80,35 @@ const Review = (answer) => {
       );
   }, [] );
       const rating=value;
-  const providerId = serviceanswer;
+  const providerid = serviceanswer;
   const customer = name;
   const customeremail = user.email;
   const date = new Date();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const booking = {
-      providerId,
+      providerid,
       customer,
       customeremail,
       review,
       rating,
       date,
     };
-    fetch("http://localhost:4567/reviews/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(booking),
-    }).then(() => {
+    fetch(
+      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/reviews/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(booking),
+      }
+    ).then(() => {
       console.log("new review");
     });
   };
   function SubmitButton() {
     if (review && rating) {
       return (
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       );
@@ -132,55 +139,57 @@ const Review = (answer) => {
   };
   return (
     <>
-   
-        <Form>
-          <Form.Group controlId="form.Name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder={name} disabled />
-          </Form.Group>
-          <Form.Group controlId="form.Email">
-            <Form.Label>Rating</Form.Label>
-            <Box
-              sx={{
-                width: 200,
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Rating
-                name="hover-feedback"
-                value={value}
-                getLabelText={getLabelText}
-                onChange={(event, newValue) => {
-                  setValue( newValue );
-                       window.localStorage.setItem("rating", newValue);
+      <Form>
+        <Form.Group controlId="form.Name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" placeholder={name} disabled />
+        </Form.Group>
 
-                }}
-                onChangeActive={(event, newHover) => {
-                  setHover(newHover);
-                }}
-                emptyIcon={
-                  <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                }
-              />
-              {value !== null && (
-                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-              )}
-            </Box>
-          </Form.Group>
-          <Form.Group controlId="form.Textarea">
-            <Form.Label>Review</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
+        <Form.Group controlId="form.Email">
+          <Form.Label>Rating</Form.Label>
+
+          <Box
+            sx={{
+              width: 200,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Rating
+              name="hover-feedback"
+              value={value}
+              getLabelText={getLabelText}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+                window.localStorage.setItem("rating", newValue);
+              }}
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
+              emptyIcon={
+                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+              }
             />
-          </Form.Group>
-          {rating}
-          <SubmitButton />
-        </Form>
-      <CardGroup>
+            {value !== null && (
+              <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+            )}
+          </Box>
+        </Form.Group>
+        <Form.Group controlId="form.Textarea">
+          <Form.Label>Review</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+          />
+        </Form.Group>
+        {rating}
+        <SubmitButton />
+      </Form>
+      {rating}
+
+       <CardGroup>
         {users.map((user) => (
           // <li key={ user.providerId }>{ user.name }</li>
           <>

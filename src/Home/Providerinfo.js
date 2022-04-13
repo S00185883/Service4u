@@ -1,35 +1,53 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  CardGroup,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, CardGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const ProviderInfo = (value,selection) => {
+const ProviderInfo = (value, selection) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [ users, setUsers ] = useState( [] );
-   const location = window.localStorage.getItem("county");
+  const [users, setUsers] = useState([]);
+  const location = window.localStorage.getItem("county");
 
-const refresh = () => {
-  // re-renders the component
-  this.setState({});
-};
+  const refresh = () => {
+    // re-renders the component
+    this.setState({});
+  };
 
   useEffect(() => {
-    fetch("http://localhost:4567/providers/"+location+"/"+value)
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          setIsLoaded(true);
-          setUsers(data);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
+    if (value == "All") {
+      fetch(
+        "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/providers/" +
+          location
+      )
+        .then((res) => res.json())
+        .then(
+          (data) => {
+            setIsLoaded(true);
+            setUsers(data);
+          },
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
+          }
+        );
+    } else {
+      fetch(
+        "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/providers/" +
+          location +
+          "/" +
+          value
+      )
+        .then((res) => res.json())
+        .then(
+          (data) => {
+            setIsLoaded(true);
+            setUsers(data);
+          },
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
+          }
+        );
+    }
   }, []);
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -44,10 +62,13 @@ const refresh = () => {
             <>
               <Row xs={1} md={0}>
                 <Card>
-                  <Card.Img variant="top" />
+                  <Card.Img
+                    variant="top"
+                    className="img"
+                    src={user.image}
+                  ></Card.Img>
                   <Card.Body>
                     <Card.Title>{user.name}</Card.Title>
-                    <Card.Img variant="top" src={user.image}></Card.Img>
                     <Card.Text>
                       <ul>
                         {" "}
