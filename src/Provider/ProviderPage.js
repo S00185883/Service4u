@@ -77,6 +77,7 @@ const handleChange = (event, newValue) => {
   return (
     <>
       <AppNavbar />
+
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="lightgrey" href="/location">
           Location
@@ -86,30 +87,34 @@ const handleChange = (event, newValue) => {
         </Link>
         <Typography color="white">{values}</Typography>
       </Breadcrumbs>
-      <Provider />
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab label="Services" {...a11yProps(0)} />
-            <Tab label="Leave a review" {...a11yProps(1)} />
-            <Tab label="Reviews" {...a11yProps(2)} />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          <Service />
-        </TabPanel>
 
-        <TabPanel value={value} index={1}>
-          <ReviewForm />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Review />{" "}
-        </TabPanel>
-      </Box>
+      {/* <br /> */}
+      <Provider />
+      <div className="mainProvider">
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab label="Services" {...a11yProps(0)} />
+              <Tab label="Leave a review" {...a11yProps(1)} />
+              <Tab label="Reviews" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <Service />
+          </TabPanel>
+
+          <TabPanel value={value} index={1}>
+            <ReviewForm />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Review />{" "}
+          </TabPanel>
+        </Box>
+      </div>
     </>
   );
 }

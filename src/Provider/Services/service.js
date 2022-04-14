@@ -37,10 +37,9 @@ const Service = (providerId) => {
   } else {
     return (
       <>
-        <div className="mainProvider">
           <h5>Services</h5>
           <div className="servicesProvider">
-            <Table striped bordered hover clas>
+            <Table striped bordered hover class>
               <thead>
                 <tr>
                   <th>Service</th>
@@ -77,7 +76,6 @@ const Service = (providerId) => {
             </Table>
 
           </div>
-        </div>
       </>
     );
   }

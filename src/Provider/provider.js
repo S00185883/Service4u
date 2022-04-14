@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "./provider.css";
 
 import Review from "./Reviews/reviews";
@@ -12,6 +12,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ReviewForm from "./Reviews/reviewform";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import EmailIcon from "@mui/icons-material/Email";
+import HomeIcon from "@mui/icons-material/Home";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -51,13 +54,13 @@ const Provider = (providerId) => {
   const [services, setServices] = useState([]);
   const [value, setValue] = React.useState(0);
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+  const Item = styled(Paper)(({ theme }) => ({
+    // // backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    // ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "left",
+    // color: theme.palette.text.secondary,
+  }));
   const ddd = window.location.href;
   const answer = ddd.split("/").pop();
   const [providerIds, setProviderId] = useState(answer);
@@ -86,24 +89,40 @@ const Item = styled(Paper)(({ theme }) => ({
   } else {
     return (
       <>
-        <div className="mainProvider">
-          <div className="profileProvider">
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
-                <Item>xs=8</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>xs=4</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>xs=4</Item>
-              </Grid>
-              <Grid item xs={8}>
-                <Item>xs=8</Item>
-              </Grid>
-            </Grid>{" "}
-          </div>
 
+        <div class="wrapper">
+          <div class="profile-card js-profile-card">
+            <div class="profile-card__img">
+              <img src={user.image} alt="profile card" />
+            </div>
+
+            <div class="profile-card__cnt js-profile-cnt">
+              <div class="profile-card__name">{user.name}</div>
+              <div class="profile-card__txt">
+                {" "}
+                <strong>
+                  <LocalPhoneIcon />
+                </strong>
+                {user.phone} &nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                <strong>
+                  <EmailIcon />
+                </strong>
+                {user.email}
+              </div>
+              <div class="profile-card-loc">
+                <span class="profile-card-loc__icon">
+                  <svg class="icon"></svg>
+                </span>
+
+                <span class="profile-card-loc__txt"><HomeIcon/>
+                  {user.addressLineOne},{user.addressLineTwo},{user.town},
+                  {user.county},{user.eircode}
+                </span>
+              </div>
+
+              <div class="profile-card-ctr">{user.description}</div>
+            </div>
+          </div>
         </div>
       </>
     );
