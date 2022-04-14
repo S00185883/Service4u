@@ -4,6 +4,7 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
 import { Button } from "react-bootstrap";
+import GoogleIcon from "@mui/icons-material/Google";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -14,6 +15,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FcGoogle } from "react-icons/fc";
+import { blue } from "@mui/material/colors";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,12 +44,10 @@ function Login() {
       return;
     }
     if (user) navigate("/location");
-    window.localStorage.setItem("email", user.email);
   }, [user, loading]);
 
   return (
     <>
-   
       <div className="body">
         <div class="container">
           <div class="main sign-in">
@@ -115,13 +115,20 @@ function Login() {
                     <br />
                     <p>Or</p>
 
-                    <FcGoogle onClick={signInWithGoogle} />
+                    <GoogleIcon
+                      fontSize="large"
+                      sx={{ color: blue[500] }}
+                      className="google"
+                      onClick={signInWithGoogle}
+                    />
                   </div>
                 </form>
               </div>
               <div class="card-footer">
                 <span>
-                  <Link to="/reset"><a>Forgot Password</a></Link>
+                  <Link to="/reset">
+                    <a>Forgot Password</a>
+                  </Link>
                 </span>
                 <span>
                   Don't have an account?{" "}

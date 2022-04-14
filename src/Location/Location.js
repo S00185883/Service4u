@@ -130,7 +130,7 @@ function Location() {
   const handleShow = () => setShow(true);
   return (
     <div className="container">
-      <div className="card">
+      <div className="locationcard">
         <h2>Please select your location</h2>
         <br />
         <br />
