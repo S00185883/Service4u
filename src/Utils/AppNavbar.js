@@ -5,10 +5,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import { Avatar, Link } from "@mui/material";
+import Profile from "./profile.png";
 const AppNavbar = () => {
 const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const HandleClick=()=>{
+<Link href=""></Link>
+  }
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -35,10 +40,12 @@ const [user, loading] = useAuthState(auth);
             <Nav className="me-auto">
               <Nav.Link href="#features"></Nav.Link>
               <Nav.Link href="#pricing"></Nav.Link>
-
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">{ name}</Nav.Link>
+              <Nav.Link href="#deets">{name}</Nav.Link>
+              <Nav.Link href="/profile">
+                <Avatar alt="profile" src={Profile} onClick={HandleClick()} />
+              </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
                 <Button className="dashboard__btn" onClick={logout}>
                   Logout

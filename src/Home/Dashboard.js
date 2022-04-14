@@ -5,13 +5,14 @@ import AppNavbar from "../Utils/AppNavbar";
 import CheckIcon from "@material-ui/icons/Check";
 
 import {
+  Breadcrumb,
   Button,
 
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
 import ProviderInfo from "./Providerinfo";
-import { Divider, InputBase, Menu, MenuItem } from "@mui/material";
+import { Breadcrumbs, Divider, InputBase, Link, Menu, MenuItem, Typography } from "@mui/material";
 function Dashboard() {
  
 
@@ -31,7 +32,13 @@ function Dashboard() {
   
     return (
       <>
- <AppNavbar/>
+        <AppNavbar />
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="lightgrey" href="/location">
+            Location
+          </Link>
+          <Typography color="white">Home</Typography>
+        </Breadcrumbs>
         <DropdownButton aligncentre title={value} onSelect={handleSelect}>
           <Dropdown.Item eventKey="All">All Services</Dropdown.Item>
           <Dropdown.Divider />
@@ -42,7 +49,6 @@ function Dashboard() {
           <Dropdown.Item eventKey="Carpentry">Carpentry</Dropdown.Item>
         </DropdownButton>
         {ProviderInfo(value)}
-
       </>
     );
   }

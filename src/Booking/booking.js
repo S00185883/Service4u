@@ -6,12 +6,14 @@ import "../Booking/booking.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { send } from "emailjs-com";
 import emailjs from "emailjs-com";
 
+
+import { Breadcrumbs,Link,  Typography } from "@mui/material";
 
 
 const Booking = () => {
@@ -130,6 +132,21 @@ const Booking = () => {
   return (
     <div className="booking">
       <AppNavbar />
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="lightgrey" href="/dashboard">
+          Home
+        </Link>
+        <Link
+          underline="hover"
+          color="lightgrey"
+          href={"/provider/" + providerId}
+        >
+          {provider.name}
+        </Link>
+        <Link underline="hover" color="white">
+        Booking
+        </Link>
+      </Breadcrumbs>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Location</Form.Label>
@@ -189,7 +206,7 @@ const Booking = () => {
           <Modal.Footer>
             A Confirmation email should be sent to you at {user.email}
             <Button variant="secondary">
-              <Link className="link" to="/dashboard">
+              <Link className="link" href="/dashboard">
                 Confirm
               </Link>
             </Button>

@@ -2,17 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import AppNavbar from "../Utils/AppNavbar";
 import CheckIcon from "@material-ui/icons/Check";
-import {
-  Breadcrumbs,
-
-  Link,
-  Typography,
-
-} from "@mui/material";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 
 import { Divider, InputBase, Menu, MenuItem } from "@mui/material";
-import Provider from "./provider";
-function ProviderPage() {
+import Profile from "./profile";
+function ProfileInfo() {
   const refreshPage = () => {
     return window.localStorage.getItem("value"); // !! : cast to boolean
   };
@@ -32,16 +26,13 @@ function ProviderPage() {
       <AppNavbar />
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="lightgrey" href="/location">
-          Location
-        </Link>
-        <Link underline="hover" color="lightgrey" href="/dashboard">
           Home
         </Link>
-        <Typography color="white">{value}</Typography>
+        <Typography color="white">Profile</Typography>
       </Breadcrumbs>
-      <Provider />
+      <Profile />
     </>
   );
 }
 
-export default ProviderPage;
+export default ProfileInfo;

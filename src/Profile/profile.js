@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppNavbar from "../Utils/AppNavbar";
-import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Button, Card, CardGroup, Row } from "react-bootstrap";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 const Profile = (providerId) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [review, setReview] = useState([]);
+  const [reviews, setReview] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [provider, setProvider] = useState([]);
 
@@ -95,7 +95,6 @@ const Profile = (providerId) => {
   } else {
     return (
       <>
-        <AppNavbar />
         <CardGroup>
           {reviews.map((review) => (
             // <li key={ user.providerId }>{ user.name }</li>
