@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "./firebase";
 import "./Reset.css";
 import { Button } from "react-bootstrap";
-import Google from "../images/favicon_io/favicon-32x32.png";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 
 import TextField from "@mui/material/TextField";
 

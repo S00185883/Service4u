@@ -10,3 +10,22 @@
     height:70px;
     border-radius: 100%;
 }
+.mainProvider{}
+
+.profileProvider{
+
+}
+.servicesProvider{
+border: double;
+
+}
+.commentSection{
+    border: double;
+    margin-left: 35px;
+        margin-right: 35px;
+        background-color: lightgrey;
+
+}
+.estimate{
+font-size: xx-small;
+}

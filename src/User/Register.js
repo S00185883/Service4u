@@ -7,7 +7,6 @@ import {
   signInWithGoogle,
 } from "./firebase";
 import "./Register.css";
-import { Button } from "react-bootstrap";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -17,7 +16,6 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { FcGoogle } from "react-icons/fc";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

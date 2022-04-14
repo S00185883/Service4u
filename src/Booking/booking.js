@@ -9,7 +9,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { send } from "emailjs-com";
 import emailjs from "emailjs-com";
 
 
@@ -18,9 +17,7 @@ import { Breadcrumbs,Link,  Typography } from "@mui/material";
 
 const Booking = () => {
   const servicething = window.location.href;
-  console.log(servicething);
   const serviceanswer = servicething.split("/").pop();
-  console.log(serviceanswer);
   const refreshPage = () => {
     return window.localStorage.getItem("date"); // !! : cast to boolean
   };

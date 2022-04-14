@@ -9,9 +9,9 @@ import Reset from "./User/Reset";
 import Dashboard from "./Home/Dashboard";
 import Location from "./Location/Location";
 import ProviderPage from "./Provider/ProviderPage";
-import Review from "./Reviews/reviews";
-import Profile from "./Profile/profile";
+import Review from "./Provider/Reviews/reviews";
 import ProfileInfo from "./Profile/ProfileInfo";
+import TabPanel from "./Provider/Reviews/Drawer";
 
 
 
@@ -29,6 +29,7 @@ class App extends Component {
           <Route exact path="/profile" element={<ProfileInfo />} />
           <Route exact path="/reset" element={<Reset />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/draw" element={<TabPanel />} />
         </Routes>
       </Router>
     );
