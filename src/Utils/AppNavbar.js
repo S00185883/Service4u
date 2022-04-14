@@ -52,8 +52,8 @@ const AppNavbar = () => {
           </Nav>
           <Nav>
             <Nav.Link href="#deets">{name}</Nav.Link>
-            <Nav.Link href="/profile">
-              <Avatar alt="profile" src={Profile} onClick={HandleClick()} />
+            <Nav.Link href="">
+              <Avatar alt="profile" src={Profile}  />
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               <Button className="dashboard__btn" onClick={logout}>

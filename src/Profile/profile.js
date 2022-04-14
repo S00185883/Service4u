@@ -17,6 +17,7 @@ const Profile = (providerId) => {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const email = window.localStorage.getItem("email");
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -42,7 +43,7 @@ const Profile = (providerId) => {
   useEffect(() => {
     fetch(
       "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/review/" +
-        user.email
+        email
     )
       .then((res) => res.json())
       .then(
@@ -58,23 +59,8 @@ const Profile = (providerId) => {
       );
 
     fetch(
-      "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/bookings/" +
-        user.email
-    )
-      .then((res) => res.json())
-      .then(
-        (services) => {
-          setIsLoaded(true);
-          setBookings(services);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-    fetch(
       "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/booking/" +
-        user.email
+        email
     )
       .then((res) => res.json())
       .then(

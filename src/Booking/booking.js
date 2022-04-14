@@ -78,12 +78,13 @@ const Booking = () => {
   }, []);
 
   const customer = name;
+  const customeremail = user.email;
   const serviceId = window.localStorage.getItem("service");
 
   // const datetime = value;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const booking = { location, date, serviceId, customer, providerId };
+    const booking = { location, date, serviceId, customer,customeremail, providerId };
     fetch(
       "http://service4u-env.eba-rtjmk8pw.us-east-1.elasticbeanstalk.com/bookings",
       {

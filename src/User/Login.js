@@ -42,7 +42,7 @@ function Login() {
       return;
     }
     if (user) navigate("/location");
-    // eslint-disable-next-line
+    window.localStorage.setItem("email", user.email);
   }, [user, loading]);
 
   return (
