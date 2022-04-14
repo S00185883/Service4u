@@ -41,13 +41,13 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/location");
-    window.localStorage.setItem("email", user.email);
+    if (user) {
+      navigate("/location");
+    }
   }, [user, loading]);
 
   return (
     <>
-   
       <div className="body">
         <div class="container">
           <div class="main sign-in">
@@ -121,7 +121,9 @@ function Login() {
               </div>
               <div class="card-footer">
                 <span>
-                  <Link to="/reset"><a>Forgot Password</a></Link>
+                  <Link to="/reset">
+                    <a>Forgot Password</a>
+                  </Link>
                 </span>
                 <span>
                   Don't have an account?{" "}

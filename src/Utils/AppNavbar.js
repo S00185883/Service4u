@@ -31,6 +31,7 @@ const AppNavbar = () => {
     if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
+      window.localStorage.setItem("email", user.email);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
