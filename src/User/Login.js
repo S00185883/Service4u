@@ -51,7 +51,7 @@ function Login() {
       <div className="body">
         <div class="container">
           <div class="main sign-in">
-            <div class="card">
+            <div class="logincard">
               <div class="logo"></div>
               <div class="card-head">
                 <h3 class="header">Sign In</h3>

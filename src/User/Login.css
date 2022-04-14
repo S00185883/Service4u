@@ -41,7 +41,7 @@ width: 100%;}
     margin-bottom: 10px;
 }
 
-.card {
+.logincard {
     position: relative;
     margin: auto;
     border-radius: 5px;
@@ -169,7 +169,7 @@ form {
     border-color: var(--color-primary);
 }
 
-.btn {
+.login__btn {
     display: inline-block;
     padding: 10px 16px;
     margin-bottom: 0;
@@ -198,7 +198,7 @@ form {
 
 .btn:hover,
 .btn:focus {
-    background-color: #00a3a3 !important;
+    background-color: #81b6eb !important;
 }
 
 .form-group .btn {

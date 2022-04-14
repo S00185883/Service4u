@@ -136,13 +136,6 @@ const Booking = () => {
         <Link underline="hover" color="lightgrey" href="/dashboard">
           Home
         </Link>
-        <Link
-          underline="hover"
-          color="lightgrey"
-          href={"/provider/" + providerId}
-        >
-          {provider.name}
-        </Link>
         <Link underline="hover" color="white">
         Booking
         </Link>

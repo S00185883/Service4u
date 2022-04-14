@@ -25,7 +25,7 @@ function ProfileInfo() {
     <>
       <AppNavbar />
       <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="lightgrey" href="/location">
+        <Link underline="hover" color="lightgrey" href="/dashboard">
           Home
         </Link>
         <Typography color="white">Profile</Typography>

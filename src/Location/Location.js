@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
   DropDownButton: {
     // margin: "50px 50px",
     fontSize: "1.125rem",
-    // width: "320px",
-    // height: "60px",
+    width: "275px",
+    height: "50px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
