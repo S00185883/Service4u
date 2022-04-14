@@ -10,6 +10,7 @@ import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../User/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import emailjs from "emailjs-com";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 import { Breadcrumbs,Link,  Typography } from "@mui/material";
@@ -125,7 +126,10 @@ const Booking = () => {
       );
     }
   }
-
+  
+  const disableWeekends = (current) => {
+    return current.day() !== 0 && current.day() !== 6;
+  };
   return (
     <div className="booking">
       <AppNavbar />
@@ -134,75 +138,83 @@ const Booking = () => {
           Home
         </Link>
         <Link underline="hover" color="white">
-        Booking
+          Booking
         </Link>
       </Breadcrumbs>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Location</Form.Label>
-          <Form.Control
-            type="address"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </Form.Group>
+      <div className="bookingcard">
+        <h4 className="h4">Book this Service</h4>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Full Location</Form.Label>
+            <Form.Control
+              type="address"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Date and Time</Form.Label>
-          <br />
-          <DatePicker
-            selected={checkInDate}
-            minDate={new Date()}
-            onChange={handleCheckInDate}
-            isClearable
-            placeholderText="Pick a Date"
-            showTimeSelect
-            dateFormat="MMMM d, yyyy h:mm aa"
-          />
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Date and Time</Form.Label>
+            <DatePicker
+              autofocus
+              selected={checkInDate}
+              minDate={ new Date() }
+              startOpen={ true }
+              
+              onChange={handleCheckInDate}
+              placeholderText="Pick a Date"
+              showTimeSelect
+              
+              dateFormat="MMMM d, yyyy h:mm"
+            />
 
-          {checkInDate && (
-            <div className="summary">
-              <p>You picked {moment(checkInDate).format("LL")}.</p>
-            </div>
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
-        <SubmitButton />
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header>
-            <Modal.Title>Modal title</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Company</h4> {provider.name}
-            <br />
-            <h4>Service</h4>
-            {service.name}
-            <br />
-            <h4>Where</h4>
-            {location}
-            <br />
-            <h4>When</h4>
-            {date}
-            <br />
-            <h4>How Much</h4>
-            {service.price}
-            <br />
-          </Modal.Body>
-          <Modal.Footer>
-            A Confirmation email should be sent to you at {user.email}
-            <Button variant="secondary">
-              <Link className="link" href="/dashboard">
-                Confirm
-              </Link>
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Form>
+            {checkInDate && (
+              <div className="summary">
+                <p>You picked {moment(checkInDate).format("LL")}.</p>
+              </div>
+            )}
+          </Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicCheckbox"
+          ></Form.Group>
+          <SubmitButton />
+          <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header>
+              <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>Company</h4> {provider.name}
+              <br />
+              <h4>Service</h4>
+              {service.name}
+              <br />
+              <h4>Where</h4>
+              {location}
+              <br />
+              <h4>When</h4>
+              {date}
+              <br />
+              <h4>How Much</h4>
+              {service.price}
+              <br />
+            </Modal.Body>
+            <Modal.Footer>
+              A Confirmation email should be sent to you at {user.email}
+              <Button variant="secondary">
+                <Link className="link" href="/dashboard">
+                  Confirm
+                </Link>
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Form>
+      </div>
     </div>
   );
 };;;

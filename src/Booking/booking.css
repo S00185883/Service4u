@@ -150,11 +150,27 @@
     top: -40px;
     left: 84px;
 }
+.h4{
+    align-self: center;
+    align-content: center;
 
+text-align: center;}
 .booking i {
     color: white;
     margin: 25px;
     font-size: 30px;
+}
+.bookingcard{
+    position: relative;
+    margin: auto;
+    border-radius: 5px;
+    background-color: #fff;
+    /*width: 380px;*/
+    width: 540px;
+    height:400px;
+    padding: 16px 32px;
+    box-shadow: 3px 3px 15px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 @media only screen and (max-device-width:568px) {
 
