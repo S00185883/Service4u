@@ -4,13 +4,15 @@ import CheckIcon from "@material-ui/icons/Check";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import options from "./data";
-import Dashboard from "../Home/Dashboard";
+import { Link, useNavigate } from "react-router-dom";
+
+import "./location.css";
 const useStyles = makeStyles((theme) => ({
   DropDownButton: {
-    margin: "50px 50px",
+    // margin: "50px 50px",
     fontSize: "1.125rem",
-    width: "320px",
-    height: "60px",
+    // width: "320px",
+    // height: "60px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -47,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
   },
+  MuiPaper: {
+    left: "400px",
+  },
   searchBarContainer: {
     minWidth: "inherit",
     display: "flex",
@@ -63,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dashboardSelectMenu: {
     "& .MuiPopover-paper": {
-      minWidth: "380px",
+      minWidth: "80px",
       maxWidth: "fit-content",
     },
   },
@@ -84,9 +89,7 @@ function Location() {
   const [searchText, setSearchText] = useState("");
   const [selection, setSelection] = useState("");
 
-  useEffect(() => {
-    setSelection(options[0].label);
-  }, []);
+
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -94,37 +97,54 @@ function Location() {
 
   const handleClose = (e) => {
     if (e.target.innerText !== selection && e.target.innerText !== "") {
-      setSelection( e.target.innerText );
-                             window.localStorage.setItem(
-                               "county",
-                               e.target.innerText
-                             );
-
+      setSelection(e.target.innerText);
+      window.localStorage.setItem("county", e.target.innerText);
     }
     setSearchText("");
     setAnchorEl(null);
   };
-  const location = window.localStorage.getItem(
-    "county" );
+  const location = window.localStorage.getItem("county");
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
+  function SubmitButton() {
+    if (selection) {
+      return (
+        <Button variant="primary" type="link" to="/dashboard">
+          <Link className="alink" to="/dashboard">
+            Continue
+          </Link>
+        </Button>
+      );
+    } else {
+      return (
+        <Button variant="primary" type="submit" disabled>
+          Continue
+        </Button>
+      );
+    }
+  }
 
-        const [show, setShow] = useState(false);
-        const handleClosed = () => setShow(false);
-        const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const handleClosed = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
-    <div>
-      <h2>Please select your location</h2>
-      <Button
-        type="button"
-        className={classes.DropDownButton}
-        onClick={handleMenuOpen}
-      >
-        {selection}
-        <i className="fas fa-chevron-down" />
-      </Button>
-      {renderDashboardMenu()}
+    <div className="container">
+      <div className="card">
+        <h2>Please select your location</h2>
+        <br />
+        <br />
+
+        <Button
+          type="button"
+          className={classes.DropDownButton}
+          onClick={handleMenuOpen}
+        >
+          {selection}
+          <i className="fas fa-chevron-down" />
+        </Button>
+        {renderDashboardMenu()}
+      </div>
     </div>
   );
 
@@ -151,58 +171,61 @@ function Location() {
 
     return (
       <>
-        
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted={true}
-          open={!!anchorEl}
-          onClose={handleClose}
-          className={classes.dashboardSelectMenu}
-          anchorReference="anchorPosition"
-          anchorPosition={{ top: 110, left: 240 }}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <MenuItem
-            className={classes.searchBarContainer}
-            disableTouchRipple={true}
+        <div className="dropdowncontainer">
+          <Menu
+            anchorEl={anchorEl}
+            keepMounted={true}
+            open={!!anchorEl}
+            onClose={handleClose}
+            className={classes.dashboardSelectMenu}
+            anchorReference="anchorPosition"
+            anchorPosition={{ top: 150, left: 720 }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
           >
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <i className="fas fa-search " />
+            <MenuItem
+              className={classes.searchBarContainer}
+              disableTouchRipple={true}
+            >
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <i className="fas fa-search " />
+                </div>
+                <InputBase
+                  placeholder="SEARCH..."
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  onChange={handleSearchChange}
+                  value={searchText}
+                />
               </div>
-              <InputBase
-                placeholder="SEARCH..."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                onChange={handleSearchChange}
-                value={searchText}
-              />
-            </div>
-          </MenuItem>
-          <Divider />
-          {displayOptions.map((item, index) => {
-            return (
-              <div key={index}>
-                <MenuItem onClick={(e) => handleClose(e)}>
-                  {renderOption(item.label)}
-                </MenuItem>
-                <Divider className={classes.menuDivider} />
-              </div>
-            );
-          })}
-        </Menu>
-
-{location}
-        </>
+            </MenuItem>
+            <Divider />
+            {displayOptions.map((item, index) => {
+              return (
+                <div key={index}>
+                  <MenuItem onClick={(e) => handleClose(e)}>
+                    {renderOption(item.label)}
+                  </MenuItem>
+                  <Divider className={classes.menuDivider} />
+                </div>
+              );
+            })}
+          </Menu>
+        </div>
+        <br />
+        <h3>{selection} </h3> <br />
+        <br />
+        {SubmitButton()}
+      </>
     );
   }
 }

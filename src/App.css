@@ -50,3 +50,7 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+Link{
+  color:white !important;
+}
+.alink{color:white !important;}
